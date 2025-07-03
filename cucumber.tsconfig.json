@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "outDir": "dist",
+    "types": ["node"],
+    "strictPropertyInitialization": false
+  },
+  "include": [
+    "pages",
+    "features",
+    "step-definitions",
+    "support",
+    "playwright.config.ts",
+    "allure-report",
+    "allure-results"
+  ]
+}
