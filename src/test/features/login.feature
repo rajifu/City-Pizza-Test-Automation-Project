@@ -1,17 +1,7 @@
-Feature: User Authentication tests
+Feature: login feature
 
-  Background:
-    Given User navigates to the application
-    And User click on the login link
-
-  Scenario: Login should be success
-    And User enter the username as "ortoni11"
-    And User enter the password as "Pass1234"
-    When User click on the login button
-    Then Login should be success
-
-  Scenario: Login should not be success
-    Given User enter the username as "Rajeswari"
-    Given User enter the password as "Pass123"
-    When User click on the login button
-    But Login should fail
+    Feature Description
+    @login
+    Scenario: Launching application url
+    Given I navigate to the City-Pizza Home page
+    Then User validate copy text "LOGINHEADER" on "LOGIN PAGE"

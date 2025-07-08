@@ -5,7 +5,9 @@ import { invokeBrowser } from "../helper/browsers/browserManager";
 import { getEnv } from "../helper/env/env";
 import { createLogger } from "winston";
 import { options } from "../helper/util/logger";
+import { loadTranslationsFromEnv } from "../helper/loadTranslationsFromEnv";
 const fs = require("fs-extra");
+
 
 let browser: Browser;
 let context: BrowserContext;
@@ -31,6 +33,12 @@ Before({ tags: "not @auth" }, async function ({ pickle }) {
     const page = await context.newPage();
     fixture.page = page;
     fixture.logger = createLogger(options(scenarioName));
+    if (!fixture.language) {
+        fixture.language = process.env.LANGUAGE || "enLang";
+        fixture.translations = loadTranslationsFromEnv();
+                console.log(`✅ Default language loaded: ${fixture.language}`);
+    }
+   
 });
 
 
@@ -49,11 +57,15 @@ Before({ tags: '@auth' }, async function ({ pickle }) {
         sources: true,
         screenshots: true, snapshots: true
     });
-    const page = await context.newPage();
+   const page = await context.newPage();
     fixture.page = page;
     fixture.logger = createLogger(options(scenarioName));
+    if (!fixture.language) {
+        fixture.language = process.env.LANGUAGE || "enLang";
+        fixture.translations = loadTranslationsFromEnv();
+                console.log(`✅ Default language loaded: ${fixture.language}`);
+    }
 });
-
 After(async function ({ pickle, result }) {
     let videoPath: string;
     let img: Buffer;

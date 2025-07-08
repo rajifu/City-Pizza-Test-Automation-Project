@@ -1,6 +1,6 @@
-import { expect, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 
-export default class Assert {
+export class Assert {
 
     constructor(private page: Page) { }
 
@@ -21,5 +21,18 @@ export default class Assert {
         const pageURL = this.page.url();
         expect(pageURL).toContain(title);
     }
+  async validateElementText(
+  element: Locator,
+  expectedText: string
+): Promise<void> {
+  const actual = (await element.textContent())?.trim();
+  const expected = expectedText.trim();
+
+  if (actual === expected) {
+    console.log(`✅ Text matches: "${actual}"`);
+  } else {
+    throw new Error(`❌ Text mismatch.\nExpected: "${expected}"\nActual: "${actual}"`);
+  }
+}
 
 }

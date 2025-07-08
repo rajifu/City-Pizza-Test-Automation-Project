@@ -2,6 +2,7 @@ import { Given, When, Then, setDefaultTimeout } from "@cucumber/cucumber";
 
 import { expect } from "@playwright/test";
 import { fixture } from "../../hooks/pageFixture";
+import LoginPage from "../../pages/LoginPage";
 
 setDefaultTimeout(60 * 1000 * 2)
 
@@ -18,9 +19,25 @@ Given(
 
      await fixture.page.goto(process.env.BASEURL);
     console.log("step completed");
+    console.log(`✅ Active language: ${fixture.language}`);
+    console.log(`Login button text: ${fixture.translations.loginButton}`);
         fixture.logger.info("Navigated to the application")
 
   })
+  Given(
+  'User validate copy text {string} on {string}',
+  async function (sectionName: string, pageName: string) {
+    switch (pageName.toUpperCase()) {
+      case "LOGIN PAGE":
+        const loginPage = new LoginPage(fixture.page);
+        await loginPage.validateCopyText(sectionName);
+        break;
+
+      default:
+        throw new Error(`Page "${pageName}" not implemented in step.`);
+    }
+  }
+);
 
 Given('User click on the login link', async function () {
     await fixture.page.locator("//span[text()='Login']").click();
