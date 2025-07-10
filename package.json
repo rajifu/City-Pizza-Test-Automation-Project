@@ -8,6 +8,7 @@
     "pretest": "npx ts-node src/helper/report/init.ts",
     "test2": "cross-env ENV=prod FORCE_COLOR=0 cucumber-js --config=config/cucumber.js --tags '@login'",
     "test": "cross-env ENV=prod LANGUAGE=enLang FORCE_COLOR=0 cucumber-js --config=config/cucumber.js --tags '@login'",
+    "test:rerun": "cross-env ENV=prod LANGUAGE=enLang FORCE_COLOR=0 cucumber-js @rerun.txt --config=config/cucumber.js",
     "posttest": "npx ts-node src/helper/report/report.ts",
     "test:failed": "cucumber-js -p rerun @rerun.txt",
     "test1": "cross-env ENV=prod FORCE_COLOR=0 cucumber-js --config=config/cucumber.js --tags '@login' || true"
